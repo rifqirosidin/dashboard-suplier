@@ -15,4 +15,9 @@ class Pembeli extends Model
     {
         return $this->belongsTo('App\Models\Suplier');
     }
+
+    public function getNilaiAtribute($nilai)
+    {
+        return array_sum($nilai);
+    }
 }

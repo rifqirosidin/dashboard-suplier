@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Collection;
 use PhpParser\Builder;
 use App\Repositories\DashboardRepository;
+use function PHPSTORM_META\map;
 
 class HomeController extends Controller
 {
@@ -27,17 +28,22 @@ class HomeController extends Controller
     {
         $datas = DashboardRepository::getDataKriteriaSuplier();
 
-        $supliers = Suplier::with('kriteria')->get();
+        $kriterias = Pembeli::with('suplier.kriteria')->whereHas('suplier')
+            ->orderBy('created_at', 'desc')
+            ->groupBy('suplier_id')
+            ->get();
 
-//        return $supliers;
 
-        return view('dashboard.index', compact('datas', 'supliers'));
+        return view('dashboard.index', compact('datas', 'kriterias'));
     }
 
     public function dashboard()
     {
-        $supliers = DashboardRepository::getDataKriteriaSuplier();;
+        $kriterias = Pembeli::with('suplier.kriteria')->whereHas('suplier')
+            ->orderBy('created_at', 'desc')
+            ->groupBy('suplier_id')
+            ->get();
 
-        return response()->json($supliers);
+        return response()->json($kriterias);
     }
 }

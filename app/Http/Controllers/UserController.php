@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::with('role')->get();
+        $users = User::with('role')->where('role_id', '!=', 1)->get();
 
         return view('dashboard.users.index', compact('users'));
     }

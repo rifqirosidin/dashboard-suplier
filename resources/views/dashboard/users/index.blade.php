@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="col-md-4">
-                 @include('dashboard.partials.alert')
+                    @include('dashboard.partials.alert')
                 </div>
                 <a href="{{ route('user.create') }}" class="btn btn-primary float-right">Tambah User</a>
             </div>
@@ -30,10 +30,10 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role->role }}</td>
                             <td>
-                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Ubah</a>
                                 <button type="button" class="btn btn-danger"
-                                onclick="event.preventDefault();document.getElementById('form-delete').submit();">
-                                    Delete
+                                        onclick="hapus()">
+                                    Hapus
                                 </button>
                             </td>
 
@@ -57,6 +57,21 @@
                 $("#example1").DataTable();
 
             });
+
+            function hapus() {
+                if (!confirm('Apakah anda yakin?')) {
+                    console.log('test')
+
+                    return false;
+                } else {
+                    event.preventDefault();
+                    document.getElementById('form-delete').submit()
+                }
+                return true;
+            }
+
+            //
+
         </script>
     @endpush
 @endsection

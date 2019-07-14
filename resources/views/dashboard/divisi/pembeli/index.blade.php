@@ -33,7 +33,7 @@
                         <td>{{ $pembeli->satuan }}</td>
                         <td>{{ $pembeli->harga }}</td>
                         <td>
-                            <a href="{{ route('pembeli.edit', $pembeli->id) }}" class="btn-sm btn-primary">Edit</a>
+                            <a href="{{ route('pembeli.edit', $pembeli->id) }}" class="btn-sm btn-primary">Ubah</a>
                         </td>
 
                     </tr>

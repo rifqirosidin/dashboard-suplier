@@ -28,21 +28,28 @@
                     </thead>
                     <tbody>
                     @foreach($evaluasis as $evaluasi)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $evaluasi->nama }} </td>
-                        <td>{{ $evaluasi->alamat }}</td>
-                        <td>{{ $evaluasi->telepon }}</td>
-                        <td>{{ $evaluasi->fax }}</td>
-                        <td>{{ $evaluasi->up }}</td>
-                        <td>{{ $evaluasi->jenis_produk }}</td>
-                        <td>{{ $evaluasi->nilai }}</td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $evaluasi->suplier->nama }} </td>
+                            <td>{{ $evaluasi->suplier->alamat }}</td>
+                            <td>{{ $evaluasi->suplier->telepon }}</td>
+                            <td>{{ $evaluasi->suplier->fax }}</td>
+                            <td>{{ $evaluasi->suplier->up }}</td>
+                            <td>{{ $evaluasi->suplier->jenis_produk }}</td>
+                            @php $nilai = 0;
+                            foreach($evaluasi->suplier->kriteria as $item){
+                                     $nilai = $item->total_nilai;
+                            }
+                            @endphp
+                            <td>{{ $nilai }}</td>
 
-                        <td>
-                            <a href="{{ route('evaluasi.create', $evaluasi->id) }}" class="btn-sm btn-primary">Beri Nilai</a>
-                        </td>
+                            <td>
+                                <a href="{{ route('evaluasi.create', $evaluasi->suplier->id) }}"
+                                   class="btn-sm btn-primary">Beri Nilai</a>
+                            </td>
 
-                    </tr>
+                        </tr>
+
                     @endforeach
                 </table>
             </div>

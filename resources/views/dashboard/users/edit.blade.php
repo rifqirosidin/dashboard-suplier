@@ -47,7 +47,7 @@
                                 <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn-sm btn-primary float-right">Submit</button>
+                                <button type="submit" class="btn-sm btn-primary float-right">Simpan</button>
                             </div>
 
                         </div>

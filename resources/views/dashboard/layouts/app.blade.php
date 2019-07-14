@@ -85,7 +85,7 @@
 <script src="{{ asset('frontend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('frontend/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('frontend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
-
+<script src="{{ asset('js/sweetalert.js') }}"></script>
 @stack('js')
 <!-- ChartJS -->
 <script src="{{ asset('frontend/plugins/chart.js/Chart.min.js') }}"></script>

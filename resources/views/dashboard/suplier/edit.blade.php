@@ -58,11 +58,10 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn-sm btn-primary float-right">Update</button>
-                        <button type="button"
-                           onclick="event.preventDefault();
-                        document.getElementById('delete').submit();"
-                         class="btn-sm btn-danger float-right mr-2">Delete</button>
+                        <button type="submit" class="btn-sm btn-primary float-right">Simpan</button>
+                        <button id="hapus" type="button"
+                           onclick="hapus();"
+                         class="btn-sm btn-danger float-right mr-2">Hapus</button>
                     </div>
                 </div>
             </form>
@@ -74,5 +73,19 @@
         </div>
     </div>
 
+    @push('js')
+    <script>
+        function hapus() {
+            if (!confirm('Apakah anda yakin?')) {
+
+                return false;
+            } else {
+                event.preventDefault();
+                document.getElementById('form-delete').submit()
+            }
+            return true;
+        }
+    </script>
+    @endpush
 
 @endsection

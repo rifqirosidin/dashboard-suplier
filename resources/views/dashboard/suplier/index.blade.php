@@ -34,7 +34,7 @@
                             <td>{{ $suplier->up }}</td>
                             <td>{{ $suplier->jenis_produk }}</td>
                             <td>
-                                <a href="{{ route('suplier.edit', $suplier->id) }}" class="btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('suplier.edit', $suplier->id) }}" class="btn-sm btn-primary">Ubah</a>
                             </td>
 
 

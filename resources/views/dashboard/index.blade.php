@@ -23,11 +23,17 @@
                         </thead>
                         <tbody>
 
-                            @foreach($datas as  $data)
+                            @foreach($kriterias as  $data)
+
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->nilai }}</td>
+                                    <td>{{ $data->suplier->nama }}</td>
+                                    @foreach($data->suplier->kriteria as $item)
+                                        @php $nilai= 0;
+                                    $nilai = $item->total_nilai
+                                        @endphp
+                                    @endforeach
+                                    <td>{{ $nilai }}</td>
                                 </tr>
                             @endforeach
                     </table>
@@ -75,8 +81,16 @@
             $.get(url, function (response) {
 
                 response.forEach(function (data) {
-                    labels.push(data.nama)
-                    nilai.push(data.nilai)
+                    // console.log(data)
+                    labels.push(data.suplier.nama)
+                    var tmp = 0
+
+                    data.suplier.kriteria.map(function (nilai) {
+
+                        tmp = nilai.total_nilai
+                    })
+
+                    nilai.push(tmp)
                 })
                 console.log(nilai)
                 var barChartCanvas = $('#barChart').get(0).getContext('2d')

@@ -46,7 +46,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_pembeli">Nama</label>
-                                <input type="text" value="{{ $pembeli->nama_barang }}" name="nama_pembeli" class="form-control" id="nama_pembeli" placeholder="Nama pembeli">
+                                <input type="text" value="{{ $pembeli->nama_barang }}" name="nama_barang" class="form-control" id="nama_pembeli" placeholder="Nama pembeli">
                             </div>
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
@@ -63,21 +63,12 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn-sm btn-primary float-right">Update</button>
+                        <button type="submit" class="btn-sm btn-primary float-right">Simpan</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
-    @push('js')
-        <script>
-            // $(function () {
-            //     //Initialize Select2 Elements
-            //     $('.select2').select2()
-            // })
-        </script>
-    @endpush
 
 
 @endsection
