@@ -19,7 +19,7 @@ class CreateKriteriasTable extends Migration
             $table->tinyInteger('kualitas');
             $table->tinyInteger('waktu_pengiriman');
             $table->tinyInteger('harga_barang');
-
+            $table->float('total_nilai');
             $table->bigInteger('suplier_id')->unsigned();
             $table->foreign('suplier_id')->references('id')->on('supliers')->onDelete('CASCADE');
             $table->timestamps();
