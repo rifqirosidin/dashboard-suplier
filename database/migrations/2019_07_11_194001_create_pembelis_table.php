@@ -23,7 +23,9 @@ class CreatePembelisTable extends Migration
             $table->string('satuan');
             $table->integer('harga');
 
-            $table->foreign('suplier_id')->references('id')->on('supliers')->onDelete('CASCADE');
+            $table->foreign('suplier_id')->references('id')->on('supliers')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

@@ -33,7 +33,6 @@ class HomeController extends Controller
             ->groupBy('suplier_id')
             ->get();
 
-
         return view('dashboard.index', compact('datas', 'kriterias'));
     }
 

@@ -9,6 +9,9 @@
 
     </style>
     <div class="container-fluid">
+        <div class="col-md-4">
+            @include('dashboard.partials.alert_error')
+        </div>
         <div class="card">
             <div class="card-header">
                 @include('dashboard.partials.alert')
@@ -47,14 +50,16 @@
                                 <td>{{ $pembelian->no_sop }}</td>
                                 <td>{{ $pembelian->tgl_pembelian }}</td>
 
-                                <td width="5%"><input class="qty1" type="text" name="metode_pembayaran[]"
-                                                      style="width: 50px"></td>
-                                <td width="5%"><input class="qty2" type="text" name="kualitas[]" style="width: 50px">
+                                <td width="5%"><input class="qty1" type="text"  max="5" name="metode_pembayaran[]"
+                                                      style="width: 50px" required></td>
+
+                                <td width="5%"><input  class="qty2" type="text"  max="5" name="kualitas[]" style="width: 50px" required>
                                 </td>
-                                <td width="5%"><input class="qty3" type="text" name="waktu_pengiriman[]"
-                                                      style="width: 50px"></td>
-                                <td width="5%"><input class="qty4" type="text" name="harga_barang[]"
-                                                      style="width: 50px"></td>
+                                <td width="5%"><input  class="qty3" type="text"  max="5" name="waktu_pengiriman[]"
+                                                      style="width: 50px" required></td>
+                                <td width="5%"><input  class="qty4" type="text"  max="5" name="harga_barang[]"
+                                                      style="width: 50px" required></td>
+
                             </tr>
                         @endforeach
                         </tbody>

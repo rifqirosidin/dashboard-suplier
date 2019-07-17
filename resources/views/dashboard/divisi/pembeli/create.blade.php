@@ -32,10 +32,13 @@
                                 <label>Suplier</label>
                                 <select class="form-control" name="suplier_id" style="width: 100%; ">
                                     @foreach($supliers as $suplier)
-                                        <option selected="selected" value="{{ $suplier->id }}">{{ $suplier->nama }}</option>
+                                        <option selected="selected"
+                                                value="{{ $suplier->id }}">{{ $suplier->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div id="form-left" style="margin-top: 100px; margin-bottom: 100px"></div>
 
                         </div>
                         <!-- /.card-body -->
@@ -44,38 +47,68 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_barang">Nama</label>
-                                <input type="text" name="nama_barang" class="form-control" id="nama_barang" placeholder="Nama Barang">
+                                <input type="text" name="nama_barang[]" class="form-control" id="nama_barang"
+                                       placeholder="Nama Barang">
                             </div>
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
-                                <input type="number" min="1" name="jumlah" class="form-control" id="jumlah" placeholder="Jumlah Barang">
+                                <input type="number" min="1" name="jumlah[]" class="form-control" id="jumlah"
+                                       placeholder="Jumlah Barang">
                             </div>
                             <div class="form-group">
                                 <label for="satuan">Satuan</label>
-                                <input type="text" name="satuan" class="form-control" id="satuan" placeholder="ex: kg">
+                                <input type="text" name="satuan[]" class="form-control" id="satuan" placeholder="ex: kg">
                             </div>
                             <div class="form-group">
                                 <label for="harga">Harga</label>
-                                <input type="text" name="harga" class="form-control" id="harga" placeholder="Harga Barang">
+                                <input type="text" name="harga[]" class="form-control" id="harga"
+                                       placeholder="Harga Barang">
                             </div>
+                            <div id="form-right" style="margin-top: 72px; margin-bottom: 72px"></div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn-sm btn-primary float-right">Buat</button>
+                        <button type="button" id="addform" class="btn-sm btn-success float-right mr-3">Tambah Barang
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-@push('js')
-<script>
-    // $(function () {
-    //     //Initialize Select2 Elements
-    //     $('.select2').select2()
-    // })
-</script>
-@endpush
+    @push('js')
+        <script>
+
+            $(document).ready(function () {
+                var i = 1;
+                $("#addform").click(function () {
+                    $("#form-right").append("<strong>Form Barang ke - ", ++i, "</strong>")
+                    $("#form-right").append(`<hr />`)
+                    $("#form-right").append(`<div class="form-group">
+                                <label for="nama_barang">Nama</label>
+                                <input type="text" name="nama_barang[]" class="form-control" id="nama_barang"
+                                       placeholder="Nama Barang">
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" min="1" name="jumlah[]" class="form-control" id="jumlah"
+                                       placeholder="Jumlah Barang">
+                            </div>
+                            <div class="form-group">
+                                <label for="satuan">Satuan</label>
+                                <input type="text" name="satuan[]" class="form-control" id="satuan" placeholder="ex: kg">
+                            </div>
+                            <div class="form-group">
+                                <label for="harga">Harga</label>
+                                <input type="text" name="harga[]" class="form-control" id="harga"
+                                       placeholder="Harga Barang">
+                            </div>`)
+                })
+            })
+
+        </script>
+    @endpush
 
 
 @endsection

@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('header', 'Buat Pembelian')
+@section('header', 'Edit Pembelian')
 @section('content')
 
     <div class="container-fluid">
@@ -10,7 +10,7 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit pembeli: {{ $pembeli->nama_pembeli }}</h3>
+                <h3 class="card-title">{{ $pembeli->nama_barang }}</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->

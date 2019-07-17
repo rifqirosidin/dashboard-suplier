@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePembelian;
+use App\Models\Kriteria;
 use App\Models\Pembeli;
 use App\Models\Suplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class PembeliController extends Controller
 {
@@ -36,9 +38,23 @@ class PembeliController extends Controller
 
     public function store(StorePembelian $request)
     {
-        $validated = $request->validated();
 
-        Pembeli::create($validated);
+        $validated = $request->validated();
+        $datas = $request->get('nama_barang');
+
+        $input = Input::all();
+        foreach ($datas as $key => $value){
+            $validated['tgl_pembelian'] = $input['tgl_pembelian'];
+            $validated['no_sop'] = $input['no_sop'];
+            $validated['suplier_id'] = $input['suplier_id'];
+            $validated['nama_barang'] = $input['nama_barang'][$key];
+            $validated['jumlah'] = $input['jumlah'][$key];
+            $validated['satuan'] = $input['satuan'][$key];
+            $validated['harga'] = $input['harga'][$key];
+            Pembeli::create($validated);
+        }
+
+
 
         session()->flash('success', 'Pembelian Sukses Dibuat');
 
