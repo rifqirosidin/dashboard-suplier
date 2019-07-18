@@ -26,13 +26,14 @@
     </div>
     <!-- /.login-logo -->
     <div class="card">
+        @include('dashboard.partials.alert_error')
         <div class="card-body login-card-body">
 
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control" placeholder="Email"
-                           value="{{ old('email') }}">
+                           value="{{ old('email') }}" required>
                     <div class="input-group-append input-group-text">
                         <span class="fas fa-envelope"></span>
                     </div>
@@ -44,7 +45,7 @@
                     @enderror
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
                     <div class="input-group-append input-group-text">
                         <span class="fas fa-lock"></span>
                     </div>
