@@ -19,24 +19,34 @@
                             <th width="30%">Nama</th>
                             <th width="10%">Nilai</th>
 
+
                         </tr>
                         </thead>
                         <tbody>
 
-                            @foreach($kriterias as  $data)
+                        @foreach($datas as $data)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $data->nama }}</td>
+                                <td>{{ $data->total_nilai }}</td>
 
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->suplier->nama }}</td>
-                                    @php $nilai= 0;
-                                    foreach($data->suplier->kriteria as $item){
-                                        $nilai = $item->total_nilai;
-                                    }
-                                    @endphp
-                                    <td>{{ $nilai }}</td>
+                            </tr>
+                        @endforeach
+{{--                            @foreach($kriterias as  $data)--}}
 
-                                </tr>
-                            @endforeach
+{{--                                <tr>--}}
+{{--                                    <td>{{ $loop->iteration }}</td>--}}
+{{--                                    <td>{{ $data->suplier->nama }}</td>--}}
+{{--                                    @php $nilai= 0;--}}
+{{--                                    foreach($data->suplier->kriteria as $item){--}}
+{{--                                        $nilai = $item->total_nilai;--}}
+{{--                                    }--}}
+{{--                                    @endphp--}}
+{{--                                    <td>{{ $nilai }}</td>--}}
+
+{{--                                </tr>--}}
+{{--                            @endforeach--}}
+                        </tbody>
                     </table>
                 </div>
                 <!-- /.card-body -->
@@ -94,15 +104,8 @@
 
                 response.forEach(function (data) {
                     // console.log(data)
-                    labels.push(data.suplier.nama)
-                    var tmp = 0
-
-                    data.suplier.kriteria.map(function (nilai) {
-
-                        tmp = nilai.total_nilai
-                    })
-
-                    nilai.push(tmp)
+                    labels.push(data.nama)
+                    nilai.push(data.total_nilai)
                 })
                 console.log(nilai)
                 var barChartCanvas = $('#barChart').get(0).getContext('2d')

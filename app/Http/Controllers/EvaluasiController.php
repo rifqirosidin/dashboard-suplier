@@ -16,14 +16,7 @@ class EvaluasiController extends Controller
 {
     public function index()
     {
-        $evaluasis = Pembeli::with('suplier.kriteria')->whereHas('suplier')
-            ->groupBy('suplier_id')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-//        $test = Suplier::all();
-
-//        $collection = collect($evaluasis);
+        $evaluasis = DashboardRepository::getDataKriteriaSuplier();
 
         return view('dashboard.evaluasi.index', compact('evaluasis'));
     }
@@ -60,9 +53,9 @@ class EvaluasiController extends Controller
             $validate['total_nilai'] = $request->total_nilai;
             $validate['suplier_id'] = $input['suplier_id'][$key];
 
-            Kriteria::updateOrCreate($validate);
+//            Kriteria::updateOrCreate($validate);
 
-//            Kriteria::create($validate);
+            Kriteria::create($validate);
         }
 
         session()->flash('success', 'Penilaian Berhasil Dibuat');

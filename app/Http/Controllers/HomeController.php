@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $datas = DashboardRepository::getDataKriteriaSuplier();
-
+//        return $datas;
         $kriterias = Pembeli::with('suplier.kriteria')->whereHas('suplier')
             ->orderBy('created_at', 'desc')
             ->groupBy('suplier_id')
@@ -38,11 +38,12 @@ class HomeController extends Controller
 
     public function dashboard()
     {
+        $datas = DashboardRepository::getDataKriteriaSuplier();
         $kriterias = Pembeli::with('suplier.kriteria')->whereHas('suplier')
             ->orderBy('created_at', 'desc')
             ->groupBy('suplier_id')
             ->get();
 
-        return response()->json($kriterias);
+        return response()->json($datas);
     }
 }
