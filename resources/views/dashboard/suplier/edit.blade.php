@@ -60,13 +60,13 @@
                     <div class="card-footer">
                         <button type="submit" class="btn-sm btn-primary float-right">Simpan</button>
                         <button id="hapus" type="button"
-                           onclick="hapus();"
+                           onclick="deleteSuplier();"
                          class="btn-sm btn-danger float-right mr-2">Hapus</button>
                     </div>
                 </div>
             </form>
 
-            <form id="delete" action="{{ route('suplier.destroy', $suplier->id) }}" method="POST" style="display: none;">
+            <form id="form-delete" action="{{ route('suplier.destroy', $suplier->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('DELETE')
             </form>
@@ -75,9 +75,8 @@
 
     @push('js')
     <script>
-        function hapus() {
+        function deleteSuplier() {
             if (!confirm('Apakah anda yakin?')) {
-
                 return false;
             } else {
                 event.preventDefault();
