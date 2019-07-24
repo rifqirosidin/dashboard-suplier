@@ -16,7 +16,11 @@ class EvaluasiController extends Controller
 {
     public function index()
     {
-        $evaluasis = DashboardRepository::getDataKriteriaSuplier();
+//        $evaluasis = DashboardRepository::getDataKriteriaSuplier();
+        $evaluasis = Pembeli::with('suplier.kriteria')->whereHas('suplier')
+            ->orderBy('created_at', 'desc')
+            ->groupBy('suplier_id')
+            ->get();
 
         return view('dashboard.evaluasi.index', compact('evaluasis'));
     }
