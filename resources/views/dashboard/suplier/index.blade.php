@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 @include('dashboard.partials.alert')
-                <a href="{{ route('suplier.create') }}" class="btn btn-primary float-right">Tambah Suplier</a>
+                <a href="{{ route('suplier.create') }}" class="btn-sm btn-primary float-right">Tambah Suplier</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

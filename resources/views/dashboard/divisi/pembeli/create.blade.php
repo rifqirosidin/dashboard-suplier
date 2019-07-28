@@ -38,8 +38,6 @@
                                 </select>
                             </div>
 
-                            <div id="form-left" style="margin-top: 100px; margin-bottom: 100px"></div>
-
                         </div>
                         <!-- /.card-body -->
 
@@ -57,19 +55,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="satuan">Satuan</label>
-                                <input type="text" name="satuan[]" class="form-control" id="satuan" placeholder="ex: kg">
+                                <input type="text" name="satuan[]" class="form-control" id="satuan"
+                                       placeholder="ex: kg">
                             </div>
                             <div class="form-group">
                                 <label for="harga">Harga</label>
                                 <input type="text" name="harga[]" class="form-control" id="harga"
                                        placeholder="Harga Barang">
                             </div>
-                            <div id="form-right" style="margin-top: 72px; margin-bottom: 72px"></div>
+                            <div class="form-barang" style="margin-top: 72px; margin-bottom: 72px">
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn-sm btn-primary float-right">Buat</button>
-                        <button type="button" id="addform" class="btn-sm btn-success float-right mr-3">Tambah Barang
+                        <button type="submit" class="btn-sm btn-primary float-right">Buat Pembelian</button>
+                        <button type="button" id="addform" class="btn-sm btn-success float-right mr-3">
+                            Tambah Barang
                         </button>
                     </div>
                 </div>
@@ -81,11 +83,17 @@
         <script>
 
             $(document).ready(function () {
+
                 var i = 1;
-                $("#addform").click(function () {
-                    $("#form-right").append("<strong>Form Barang ke - ", ++i, "</strong>")
-                    $("#form-right").append(`<hr />`)
-                    $("#form-right").append(`<div class="form-group">
+                var max = 5;
+                var jml_form = 0;
+                $("#addform").click(function (e) {
+                    if (jml_form < max) {
+                        e.preventDefault();
+                        $(".form-barang").append("<div><strong>Form Barang ke - ", ++i, "</strong>" +
+                            "<button type=\"button\"  id=\"removeForm\" class=\"btn-sm btn-danger float-right mr-3\">Hapus</button>")
+                        $(".form-barang").append(`<hr />`)
+                        $(".form-barang").append(`<div class="form-group">
                                 <label for="nama_barang">Nama</label>
                                 <input type="text" name="nama_barang[]" class="form-control" id="nama_barang"
                                        placeholder="Nama Barang">
@@ -99,13 +107,23 @@
                                 <label for="satuan">Satuan</label>
                                 <input type="text" name="satuan[]" class="form-control" id="satuan" placeholder="ex: kg">
                             </div>
-                            <div class="form-group">
+                               <div class="form-group">
                                 <label for="harga">Harga</label>
                                 <input type="text" name="harga[]" class="form-control" id="harga"
                                        placeholder="Harga Barang">
-                            </div>`)
+                            </div></div>
+                            `)
+                    }
+                    jml_form++
+                })
+
+                $(".form-barang").on("click", ".btn-danger", function (e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove()
+                    jml_form--
                 })
             })
+
 
         </script>
     @endpush

@@ -8,7 +8,7 @@
                 <div class="col-md-4">
                     @include('dashboard.partials.alert')
                 </div>
-                <a href="{{ route('user.create') }}" class="btn btn-primary float-right">Tambah User</a>
+                <a href="{{ route('user.create') }}" class="btn-sm btn-primary float-right">Tambah User</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -30,17 +30,18 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role->role }}</td>
                             <td>
-                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Ubah</a>
-                                <button type="button" class="btn btn-danger"
+                                <a href="{{ route('user.edit', $user->id) }}" class="btn-sm btn-primary">Ubah</a>
+                                <a href="{{ route('user.destroy', $user->id) }}" class="btn-sm btn-danger"
                                         onclick="hapus()">
                                     Hapus
-                                </button>
+                                </a>
                             </td>
 
 
                         </tr>
                     @endforeach
                 </table>
+
                 <form id="form-delete" action="{{ route('user.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -61,7 +62,7 @@
             function hapus() {
                 if (!confirm('Apakah anda yakin?')) {
                     console.log('test')
-
+                    event.preventDefault();
                     return false;
                 } else {
                     event.preventDefault();

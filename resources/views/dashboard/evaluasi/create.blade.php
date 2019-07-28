@@ -42,6 +42,10 @@
                             <th>HB</th>
                         </tr>
                         <tbody>
+                        @php
+                            $role_id = auth()->user()->role_id;
+                        @endphp
+
                         @foreach($pembelians as $pembelian)
                             <input name="suplier_id[]" type="hidden" value="{{ $pembelian->suplier_id }}"/>
 
@@ -49,16 +53,17 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pembelian->no_sop }}</td>
                                 <td>{{ $pembelian->tgl_pembelian }}</td>
+                                <td width="5%"><input class="qty1" type="number" min="1"  max="5" name="metode_pembayaran[]"
+                                                      style="width: 50px" {{ $role_id == '3' ? 'disabled' : '' }}  ></td>
 
-                                <td width="5%"><input class="qty1" type="text"  max="5" name="metode_pembayaran[]"
-                                                      style="width: 50px" required></td>
-
-                                <td width="5%"><input  class="qty2" type="text"  max="5" name="kualitas[]" style="width: 50px" required>
+                                <td width="5%"><input  class="qty2" type="number" min="1" max="5" name="kualitas[]"
+                                                       style="width: 50px;"
+                                        {{ $role_id == '2' ? 'disabled' : '' }}>
                                 </td>
-                                <td width="5%"><input  class="qty3" type="text"  max="5" name="waktu_pengiriman[]"
-                                                      style="width: 50px" required></td>
-                                <td width="5%"><input  class="qty4" type="text"  max="5" name="harga_barang[]"
-                                                      style="width: 50px" required></td>
+                                <td width="5%"><input  class="qty3" type="number" min="1"  max="5" name="waktu_pengiriman[]"
+                                                       style="width: 50px" {{ $role_id == '3' ? 'disabled' : '' }}></td>
+                                <td width="5%"><input class="qty4" type="number" min="1" max="5" name="harga_barang[]"
+                                                       style="width: 50px" {{ $role_id == '3' ? 'disabled' : '' }}></td>
 
                             </tr>
                         @endforeach

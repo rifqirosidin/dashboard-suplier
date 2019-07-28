@@ -37,11 +37,17 @@ class UserController extends Controller
     public function store(StoreUser $request)
     {
         $validate = $request->validated();
-        $validate['password'] = Hash::make($request->password);
-        User::create($validate);
-        session()->flash('success', 'User berhasil dibuat');
 
-        return redirect()->route('user.index');
+        try {
+            $validate['password'] = Hash::make($request->password);
+            User::create($validate);
+            session()->flash('success', 'User berhasil dibuat');
+
+            return redirect()->route('user.index');
+        } catch (\Exception $exception){
+            session()->flash('failed', 'User gagal dibuat');
+        }
+
         //
     }
 
@@ -81,9 +87,15 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        session()->flash('success', 'User Berhasil dihapus');
+        try {
+            $user->delete();
+            session()->flash('success', 'User Berhasil dihapus');
+            return redirect()->route('user.index');
+        } catch (\Exception $exception){
+            session()->flash('failed', 'User gagal dihapus');
+            return redirect()->route('user.index');
+        }
 
-        return redirect()->route('user.index');
+
     }
 }

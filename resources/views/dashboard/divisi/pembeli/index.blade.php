@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('pembeli.create') }}" class="btn btn-primary float-right">Tambah Pembelian</a>
+                <a href="{{ route('pembeli.create') }}" class="btn-sm btn-primary float-right">Tambah Pembelian</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -33,12 +33,21 @@
                         <td>{{ $pembeli->satuan }}</td>
                         <td>{{ $pembeli->harga }}</td>
                         <td>
-                            <a href="{{ route('pembeli.edit', $pembeli->id) }}" class="btn-sm btn-primary">Ubah</a>
+                            <a href="{{ route('pembeli.edit', $pembeli->id) }}" class="btn-sm btn-primary">
+                                Ubah
+                            </a>
+{{--                            <a id="hapus" href="{{ route('pembeli_destroy', $pembeli->id) }}" pembeliid="{{ $pembeli->id }}" class="btn-sm btn-danger ml-2"--}}
+{{--                              onclick="return confirm('Apakah Anda Yakin?')" >--}}
+{{--                                Hapus--}}
+{{--                            </a>--}}
                         </td>
 
                     </tr>
                     @endforeach
                 </table>
+
+
+
             </div>
             <!-- /.card-body -->
         </div>
@@ -51,6 +60,7 @@
                 $("#example1").DataTable();
 
             });
+
         </script>
     @endpush
 @endsection

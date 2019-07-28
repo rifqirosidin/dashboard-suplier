@@ -4,7 +4,6 @@
 
     <div class="container-fluid">
         <div class="col-md-4">
-            @include('dashboard.partials.alert')
             @include('dashboard.partials.error')
         </div>
 

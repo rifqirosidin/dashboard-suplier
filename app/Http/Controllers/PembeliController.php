@@ -58,7 +58,7 @@ class PembeliController extends Controller
 
         session()->flash('success', 'Pembelian Sukses Dibuat');
 
-        return redirect()->back();
+        return redirect()->route('pembeli.index');
 
     }
 
@@ -86,6 +86,14 @@ class PembeliController extends Controller
 
     public function destroy($id)
     {
-        //
+        try {
+             Pembeli::where('id', $id)->delete();
+            session()->flash('success', 'Hapus User sukses');
+            return redirect()->route('pembeli.index');
+        } catch (\Exception $exception){
+
+            session()->flash('failed', 'Hapus User Gagal');
+            return redirect()->route('pembeli.index');
+        }
     }
 }

@@ -44,8 +44,12 @@
                             <td>{{ $nilai }}</td>
 
                             <td>
-                                <a href="{{ route('evaluasi.create', $evaluasi->suplier->id) }}"
-                                   class="btn-sm btn-primary">Beri Nilai</a>
+                                @if($nilai == 0)
+                                    <a href="{{ route('evaluasi.create', $evaluasi->suplier->id) }}"
+                                       class="btn-sm btn-primary">Beri Nilai</a>
+                                @else
+                                    <a class="btn-sm btn-primary" href="{{ route('evaluasi.edit', $evaluasi->suplier->id) }}">Ubah Nilai</a>
+                                @endif
                             </td>
 
                         </tr>
