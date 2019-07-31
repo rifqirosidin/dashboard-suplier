@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4>Peringkat </h4>
@@ -32,31 +32,16 @@
 
                             </tr>
                         @endforeach
-{{--                            @foreach($kriterias as  $data)--}}
 
-{{--                                <tr>--}}
-{{--                                    <td>{{ $loop->iteration }}</td>--}}
-{{--                                    <td>{{ $data->suplier->nama }}</td>--}}
-{{--                                    @php $nilai= 0;--}}
-{{--                                    foreach($data->suplier->kriteria as $item){--}}
-{{--                                        $nilai = $item->total_nilai;--}}
-{{--                                    }--}}
-{{--                                    @endphp--}}
-{{--                                    <td>{{ $nilai }}</td>--}}
-
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
                         </tbody>
                     </table>
                 </div>
                 <!-- /.card-body -->
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-success">
+        <div class="col-md-6">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Grafik Peringkat Suplier</h3>
 

@@ -28,7 +28,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
     Route::get('/evaluasi/{id}', 'EvaluasiController@create')->name('evaluasi.create');
     Route::post('/evaluasi/{id}', 'EvaluasiController@store')->name('evaluasi.store');
     Route::get('/evaluasi/{id}/edit', 'EvaluasiController@edit')->name('evaluasi.edit');
-    Route::patch('/evaluasi/{id}/edit', 'EvaluasiController@update')->name('evaluasi.update');
+    Route::post('/evaluasi/{id}/edit', 'EvaluasiController@store')->name('evaluasi.update');
 });
 
 Route::get('/dashboard', 'HomeController@index')->name('home');

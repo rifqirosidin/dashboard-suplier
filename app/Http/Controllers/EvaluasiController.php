@@ -18,14 +18,12 @@ class EvaluasiController extends Controller
 {
     public function index()
     {
-//        $evaluasis = DashboardRepository::getDataKriteriaSuplier();
+
         $evaluasis = Pembeli::with('suplier.kriteria')->whereHas('suplier')
             ->orderBy('created_at', 'desc')
             ->groupBy('suplier_id')
             ->get();
 
-        $col = collect($evaluasis);
-        $sum = $col->sum('suplier_d');
 
         return view('dashboard.evaluasi.index', compact('evaluasis'));
     }
@@ -34,7 +32,7 @@ class EvaluasiController extends Controller
     {
 //        $pembelians = Pembeli::with('suplier.kriteria')->where('suplier_id', $id)
 ////            ->get();
-         $pembelians = Pembeli::with('suplier.kriteria')->where('suplier_id', $id)->get();
+        $pembelians = Pembeli::with('suplier.kriteria')->where('suplier_id', $id)->get();
 
 //        return $pembelians;
 
@@ -45,10 +43,10 @@ class EvaluasiController extends Controller
 
     public function store(Request $request)
     {
-        $id =  request()->suplier_id;
+        $id = request()->suplier_id;
         Kriteria::where('suplier_id', $id)->delete();
 
-        for($key=0; $key < count($request->suplier_id); $key++){
+        for ($key = 0; $key < count($request->suplier_id); $key++) {
             $kriteria = new Kriteria();
 
             $kriteria->metode_pembayaran = $request['metode_pembayaran'][$key] ?: 0;
@@ -77,25 +75,55 @@ class EvaluasiController extends Controller
 
         $suplier = Suplier::where('id', $id)->first();
 
-        return view('dashboard.evaluasi.edit', compact('kriteria', 'pembelians','suplier', 'jumlah'));
+        return view('dashboard.evaluasi.edit', compact('kriteria', 'pembelians', 'suplier', 'jumlah'));
     }
 
     public function update(Request $request)
     {
-        try {
-           for ($key=0 ; $key < count(request('kualitas')); $key++){
-               $kriteria = Kriteria::where('id', $request->id_kriteria[$key]);
-               $kriteria->update([
-                  'metode_pembayaran' => $request->metode_pembayaran[$key],
-                   'kualitas' => $request->kualitas[$key],
-                   'waktu_pengiriman' => $request->waktu_pengiriman[$key],
-                   'harga_barang' => $request->harga_barang[$key],
-                   'total_nilai' => $request->total_nilai
-               ]);
 
-           }
+        DB::beginTransaction();
+        try {
+            Kriteria::where('suplier_id', $request->suplier_id);
+            for ($key = 0; $key < count(request('suplier_id')); $key++) {
+//                $kriteria = Kriteria::where('id', $request->id_kriteria[$key]);
+                Kriteria::create(
+                    [
+                        'suplier_id' => $request->suplier_id,
+                        'metode_pembayaran' => $request->metode_pembayaran[$key],
+                        'kualitas' => $request->kualitas[$key],
+                        'waktu_pengiriman' => $request->waktu_pengiriman[$key],
+                        'harga_barang' => $request->harga_barang[$key],
+                        'total_nilai' => $request->total_nilai
+                    ]);
+
+            }
+            DB::commit();
             session()->flash('success', 'Penilaian berhasil di update');
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            session()->flash('failed', 'Penilaian gagal di update');
+        }
+
+        return redirect()->route('evaluasi.index');
+
+    }
+
+    public function evaluasiNilai(Request $request)
+    {
+        try {
+            for ($key = 0; $key < count(request('suplier_id')); $key++) {
+                $kriteria = Kriteria::where('id', $request->id_kriteria[$key]);
+                $kriteria->updateOrCreate(['id' => $request->id_kriteria[$key]], [
+                    'metode_pembayaran' => $request->metode_pembayaran[$key],
+                    'kualitas' => $request->kualitas[$key],
+                    'waktu_pengiriman' => $request->waktu_pengiriman[$key],
+                    'harga_barang' => $request->harga_barang[$key],
+                    'total_nilai' => $request->total_nilai
+                ]);
+
+            }
+            session()->flash('success', 'Penilaian berhasil di update');
+        } catch (\Exception $exception) {
             session()->flash('failed', 'Penilaian gagal di update');
         }
 

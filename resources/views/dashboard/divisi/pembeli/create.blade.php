@@ -42,7 +42,8 @@
                         <!-- /.card-body -->
 
 
-                        <div class="col-md-6">
+                        <div class="remove col-md-6">
+                            <div>
                             <div class="form-group">
                                 <label for="nama_barang">Nama</label>
                                 <input type="text" name="nama_barang[]" class="form-control" id="nama_barang"
@@ -63,8 +64,9 @@
                                 <input type="text" name="harga[]" class="form-control" id="harga"
                                        placeholder="Harga Barang">
                             </div>
-                            <div class="form-barang" style="margin-top: 72px; margin-bottom: 72px">
-                                <div></div>
+                            <div class="form-barang" ">
+                            <div></div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -90,10 +92,11 @@
                 $("#addform").click(function (e) {
                     if (jml_form < max) {
                         e.preventDefault();
-                        $(".form-barang").append("<div><strong>Form Barang ke - ", ++i, "</strong>" +
-                            "<button type=\"button\"  id=\"removeForm\" class=\"btn-sm btn-danger float-right mr-3\">Hapus</button>")
-                        $(".form-barang").append(`<hr />`)
-                        $(".form-barang").append(`<div class="form-group">
+                        $(".form-barang").append(`<div style='margin-top: 72px; margin-bottom: 72px'>
+                                 <strong>Form Barang ke - ${++i}, </strong>
+                                <button id="btnHapus" type="button" class="btn-sm btn-danger float-right">Hapus</button>
+                                <hr />
+                                 <div class="form-group">
                                 <label for="nama_barang">Nama</label>
                                 <input type="text" name="nama_barang[]" class="form-control" id="nama_barang"
                                        placeholder="Nama Barang">
@@ -117,7 +120,8 @@
                     jml_form++
                 })
 
-                $(".form-barang").on("click", ".btn-danger", function (e) {
+                $(".form-barang").on("click", "#btnHapus", function (e) {
+                    console.log("test")
                     e.preventDefault();
                     $(this).parent('div').remove()
                     jml_form--

@@ -24,8 +24,7 @@
                 <p class="text-right">Jenis Produk: {{ $suplier->jenis_produk }}</p>
                 <form action="{{ route('evaluasi.update', $suplier->id) }}" method="POST" id="form-submit">
                     @csrf
-                    @method('PATCH')
-
+{{--                    @method('PATCH')--}}
                     <table id="evaluasi" class="table table-responsive table-bordered table-striped ">
                         <thead>
                         <tr>
@@ -172,7 +171,7 @@
              */
             $(document).ready(function () {
                 var total = 0;
-                $(document).on("keyup", ".qty1", function () {
+                $(document).on("change", ".qty1", function () {
                     var sum = 0;
                     var avg = 0;
                     var count = 0;
@@ -191,7 +190,7 @@
                     $("#total_nilai").val(parseFloat(total).toFixed(2))
                 });
 
-                $(document).on("keyup", ".qty2", function () {
+                $(document).on("change", ".qty2", function () {
                     var sum_kb = 0;
                     var count_kb = 0;
                     var avg_kb = 0;
@@ -210,7 +209,7 @@
                 });
 
                 //nilai waktu pengiriman
-                $(document).on("keyup", ".qty3", function () {
+                $(document).on("change", ".qty3", function () {
                     var sum_wp = 0;
                     var count_wp = 0;
                     var avg_wp = 0
@@ -230,7 +229,7 @@
                 })
 
                 //nilai harga barang = hb
-                $(document).on("keyup", ".qty4", function () {
+                $(document).on("change", ".qty4", function () {
                     var sum_hb = 0;
                     var count_hb = 0;
                     var avg_hb = 0;

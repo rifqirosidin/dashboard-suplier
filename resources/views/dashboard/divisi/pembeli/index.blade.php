@@ -4,6 +4,9 @@
 
     <div class="container-fluid">
         <div class="card">
+            <div class="col-md-4">
+             @include('dashboard.partials.alert')
+            </div>
             <div class="card-header">
                 <a href="{{ route('pembeli.create') }}" class="btn-sm btn-primary float-right">Tambah Pembelian</a>
             </div>
