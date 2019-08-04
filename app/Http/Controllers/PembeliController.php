@@ -74,13 +74,29 @@ class PembeliController extends Controller
         return view('dashboard.divisi.pembeli.edit', compact('pembeli', 'supliers'));
     }
 
-    public function update(StorePembelian $request, Pembeli $pembeli)
+    public function update(Request $request, Pembeli $pembeli)
     {
-        $validate = $request->validated();
-        $pembeli->update($validate);
+        $validate = $this->validate($request,
+            [
+            'tgl_pembelian' => 'required|date',
+                'no_sop' => 'required',
+                'suplier_id' => 'required|numeric',
+                'nama_barang' => 'required',
+                'jumlah' => 'required|numeric',
+                'satuan' => 'required|string',
+                'harga' => 'required|numeric'
+            ]);
 
-        session()->flash('success', 'Update Barang pembelian sukses');
-        return redirect()->route('pembeli.index');
+        try {
+            $pembeli->update($validate);
+            session()->flash('success', 'Update Barang pembelian sukses');
+            return redirect()->route('pembeli.index');
+        } catch (\Exception $exception){
+            session()->flash('failed', 'Update Barang pembelian gagal');
+            return redirect()->route('pembeli.index');
+        }
+
+
     }
 
 

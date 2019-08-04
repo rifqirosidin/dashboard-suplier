@@ -30,11 +30,9 @@ class EvaluasiController extends Controller
 
     public function create($id)
     {
-//        $pembelians = Pembeli::with('suplier.kriteria')->where('suplier_id', $id)
-////            ->get();
+
         $pembelians = Pembeli::with('suplier.kriteria')->where('suplier_id', $id)->get();
 
-//        return $pembelians;
 
         $suplier = Suplier::where('id', $id)->first();
 
@@ -43,26 +41,36 @@ class EvaluasiController extends Controller
 
     public function store(Request $request)
     {
-        $id = request()->suplier_id;
-        Kriteria::where('suplier_id', $id)->delete();
+        DB::beginTransaction();
 
-        for ($key = 0; $key < count($request->suplier_id); $key++) {
-            $kriteria = new Kriteria();
+        try {
+            $id = request()->suplier_id;
+            Kriteria::where('suplier_id', $id)->delete();
 
-            $kriteria->metode_pembayaran = $request['metode_pembayaran'][$key] ?: 0;
-            $kriteria->kualitas = $request['kualitas'][$key] ?: 0;
-            $kriteria->waktu_pengiriman = $request['waktu_pengiriman'][$key] ?: 0;
-            $kriteria->harga_barang = $request['harga_barang'][$key] ?: 0;
-            $kriteria->total_nilai = $request->total_nilai;
-            $kriteria->suplier_id = $request['suplier_id'][$key] ?: 0;
+            for ($key = 0; $key < count($request->suplier_id); $key++) {
+                $kriteria = new Kriteria();
 
-            $kriteria->save();
+                $kriteria->metode_pembayaran = $request['metode_pembayaran'][$key] ?: 0;
+                $kriteria->kualitas = $request['kualitas'][$key] ?: 0;
+                $kriteria->waktu_pengiriman = $request['waktu_pengiriman'][$key] ?: 0;
+                $kriteria->harga_barang = $request['harga_barang'][$key] ?: 0;
+                $kriteria->total_nilai = $request->total_nilai;
+                $kriteria->suplier_id = $request['suplier_id'][$key] ?: 0;
+
+                $kriteria->save();
+                DB::commit();
+            }
+
+            session()->flash('success', 'Penilaian Berhasil Dibuat');
+            return redirect()->route('evaluasi.index');
+        } catch (\Exception $exception){
+            DB::rollBack();
+            session()->flash('failed', 'Penilaian gagal Dibuat');
+            return redirect()->route('evaluasi.index');
         }
 
 
-        session()->flash('success', 'Penilaian Berhasil Dibuat');
 
-        return redirect()->route('evaluasi.index');
 
     }
 
@@ -110,20 +118,28 @@ class EvaluasiController extends Controller
 
     public function evaluasiNilai(Request $request)
     {
+
+        DB::beginTransaction();
         try {
             for ($key = 0; $key < count(request('suplier_id')); $key++) {
                 $kriteria = Kriteria::where('id', $request->id_kriteria[$key]);
-                $kriteria->updateOrCreate(['id' => $request->id_kriteria[$key]], [
-                    'metode_pembayaran' => $request->metode_pembayaran[$key],
-                    'kualitas' => $request->kualitas[$key],
-                    'waktu_pengiriman' => $request->waktu_pengiriman[$key],
-                    'harga_barang' => $request->harga_barang[$key],
-                    'total_nilai' => $request->total_nilai
-                ]);
+                $kriteria->updateOrCreate(
+                    [   'id' => $request->id_kriteria[$key] ?: 1,
+                    ],
+                    [
+                        'metode_pembayaran' => $request->metode_pembayaran[$key],
+                        'kualitas' => $request->kualitas[$key],
+                        'suplier_id' =>$request->suplier_id[$key],
+                        'waktu_pengiriman' => $request->waktu_pengiriman[$key],
+                        'harga_barang' => $request->harga_barang[$key],
+                        'total_nilai' => $request->total_nilai
+                    ]);
 
             }
+            DB::commit();
             session()->flash('success', 'Penilaian berhasil di update');
         } catch (\Exception $exception) {
+            DB::rollBack();
             session()->flash('failed', 'Penilaian gagal di update');
         }
 

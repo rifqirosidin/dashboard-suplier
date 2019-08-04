@@ -22,9 +22,8 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <p class="text-right">Jenis Produk: {{ $suplier->jenis_produk }}</p>
-                <form action="{{ route('evaluasi.update', $suplier->id) }}" method="POST" id="form-submit">
+                <form action="{{ route('evaluasi.store', $suplier->id) }}" method="POST" id="form-submit">
                     @csrf
-{{--                    @method('PATCH')--}}
                     <table id="evaluasi" class="table table-responsive table-bordered table-striped ">
                         <thead>
                         <tr>
@@ -89,28 +88,27 @@
                                     <td>{{ $pembelian->no_sop }}</td>
                                     <td>{{ $pembelian->tgl_pembelian }}</td>
 
-                                    <td width="5%"><input class="qty1" type="text" max="5"
+                                    <td width="5%"><input class="qty1" type="number" min="1" max="5"
                                                           name="metode_pembayaran[]"
                                                           style="width: 50px ; {{ $role_id == '3' ? 'background-color: rgb(235, 235, 228)' : '' }}"
                                             {{ $role_id == '3' ? 'readonly' : '' }} >
                                     </td>
 
-                                    <td width="5%"><input class="qty2" type="text" max="5" name="kualitas[]"
+                                    <td width="5%"><input class="qty2" type="number" min="1" max="5" name="kualitas[]"
                                                           style="width: 50px ; {{ $role_id == '2' ? 'background-color: rgb(235, 235, 228)' : '' }}"
                                             {{ $role_id == '2' ? 'readonly' : '' }}>
                                     </td>
-                                    <td width="5%"><input class="qty3" type="text" max="5" name="waktu_pengiriman[]"
+                                    <td width="5%"><input class="qty3" type="number" min="1" max="5" name="waktu_pengiriman[]"
                                                           style="width: 50px ; {{ $role_id == '3' ? 'background-color: rgb(235, 235, 228)' : '' }}"
                                             {{ $role_id == '3' ? 'readonly' : '' }}>
                                     </td>
-                                    <td width="5%"><input class="qty4" type="text" max="5" name="harga_barang[]"
+                                    <td width="5%"><input class="qty4" type="number" min="1" max="5" name="harga_barang[]"
                                                           style="width: 50px ; {{ $role_id == '3' ? 'background-color: rgb(235, 235, 228)' : '' }}"
                                             {{ $role_id == '3' ? 'readonly' : '' }}>
                                     </td>
                                 </tr>
                                 @endif
-                                {{--                                @php $index++ @endphp--}}
-                                </tr>
+
                                 @endforeach
                         </tbody>
                         <tfoot>
