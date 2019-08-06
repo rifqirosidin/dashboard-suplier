@@ -69,9 +69,6 @@ class EvaluasiController extends Controller
             return redirect()->route('evaluasi.index');
         }
 
-
-
-
     }
 
     public function edit(Kriteria $kriteria, $id)
@@ -88,13 +85,18 @@ class EvaluasiController extends Controller
 
     public function update(Request $request)
     {
+        return $request->id_kriteria;
 
         DB::beginTransaction();
         try {
-            Kriteria::where('suplier_id', $request->suplier_id);
+
             for ($key = 0; $key < count(request('suplier_id')); $key++) {
-//                $kriteria = Kriteria::where('id', $request->id_kriteria[$key]);
-                Kriteria::create(
+                $id = $request->id_kriteria[$key];
+              $kriteria = Kriteria::where('id', $id);
+                $kriteria->updateOrCreate(
+                    [
+                        'id' => $request->id_kriteria[$key]
+                    ],
                     [
                         'suplier_id' => $request->suplier_id,
                         'metode_pembayaran' => $request->metode_pembayaran[$key],

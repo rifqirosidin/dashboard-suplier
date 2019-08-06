@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Peringkat </h4>
@@ -15,9 +15,16 @@
                     <table id="peringkat" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th width="3%">Ranking</th>
+
                             <th width="30%">Nama</th>
+                            <th width="30%">Alamat</th>
+                            <th width="10%">Telepone</th>
+                            <th width="10%">Fax</th>
+                            <th width="10%">UP</th>
+                            <th width="10%">Jenis Produk</th>
                             <th width="10%">Nilai</th>
+                            <th width="2%">Ranking</th>
+
 
 
                         </tr>
@@ -26,9 +33,14 @@
 
                         @foreach($datas as $data)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama }}</td>
+                                <td>{{ $data->alamat }}</td>
+                                <td>{{ $data->telepon }}</td>
+                                <td>{{ $data->fax }}</td>
+                                <td>{{ $data->up }}</td>
+                                <td>{{ $data->jenis_produk }}</td>
                                 <td>{{ $data->total_nilai }}</td>
+                                <td>{{ $loop->iteration }}</td>
 
                             </tr>
                         @endforeach
@@ -39,8 +51,9 @@
                 <!-- /.card-body -->
             </div>
         </div>
-
-        <div class="col-md-6">
+    </div>
+    <div class="row">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Grafik Peringkat Suplier</h3>
@@ -68,6 +81,7 @@
     <script>
         $(function () {
             $("#peringkat").DataTable({
+                order: [[6, "desc"]],
                 dom: 'Bfrtip',
                 buttons: [
                     'csv', 'excel', 'print'

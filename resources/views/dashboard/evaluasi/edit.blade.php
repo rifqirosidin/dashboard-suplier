@@ -24,6 +24,7 @@
                 <p class="text-right">Jenis Produk: {{ $suplier->jenis_produk }}</p>
                 <form action="{{ route('evaluasi.store', $suplier->id) }}" method="POST" id="form-submit">
                     @csrf
+
                     <table id="evaluasi" class="table table-responsive table-bordered table-striped ">
                         <thead>
                         <tr>
@@ -53,7 +54,8 @@
                                     $role_id = auth()->user()->role_id;
                                 @endphp
                                 @foreach($pembelian->suplier->kriteria[$key] as $nilai)
-                                    <input name="id_kriteria[]" type="hidden" value="{{ $kriteria->id }}"/>
+                                    <input name="id_kriteria[]" type="hidden"
+                                           value="{{ $kriteria->id  }}"/>
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $pembelian->no_sop }}</td>
